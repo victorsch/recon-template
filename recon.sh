@@ -9,7 +9,7 @@ sleep 2
 
 cat wildcards | assetfinder --subs-only | anew domains
 
-cat domains | httprobe -c 80 --prefer-https | anew hosts
+cat domains | httprobe -c 80 | anew hosts
 #findomain -f wildcards | tee -a findomain.out
 
 # anew only adds new lines, won't add duplicates
