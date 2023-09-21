@@ -13,3 +13,9 @@ go install github.com/tomnomnom/waybackurls@latestsudo vi
 
 echo "export PATH=~/go/bin:$PATH" > ~/.zshrc
 echo "export PATH=~/go/bin:$PATH" > ~/.bashrc
+
+
+git clone https://github.com/tomnomnom/gf
+cd gf
+mkdir -p ~/.gf
+cp examples/* ~/.gf
