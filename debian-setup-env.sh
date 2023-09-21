@@ -9,4 +9,7 @@ go install github.com/tomnomnom/fff@latest
 go install github.com/tomnomnom/gron@latest
 go install github.com/tomnomnom/gf@latest
 go install github.com/tomnomnom/httprobe@latest
-go install github.com/tomnomnom/waybackurls@latest
+go install github.com/tomnomnom/waybackurls@latestsudo vi
+
+echo "export PATH=~/go/bin:$PATH" > ~/.zshrc
+echo "export PATH=~/go/bin:$PATH" > ~/.bashrc
