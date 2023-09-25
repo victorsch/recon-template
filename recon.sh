@@ -17,7 +17,8 @@ cat hosts | fff -d 1 -S -o roots
 # loop through each host one at a time and run gobuster, save output to file
 for host in $(cat hosts); do
     echo $host
-    gobuster dir -u $host -w ~/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt -t 50 -o $host.gobuster
+    # wget robots.txt
+    wget $host/robots.txt
 done
 
 
@@ -27,3 +28,4 @@ aws s3 cp --recursive roots s3://mass-recon-warehouse/`basename $PWD`
 aws s3 cp hosts s3://mass-recon-warehouse/`basename $PWD`/
 aws s3 cp domains s3://mass-recon-warehouse/`basename $PWD`/
 aws s3 cp wildcards s3://mass-recon-warehouse/`basename $PWD`/
+aws s3 cp robots.txt s3://mass-recon-warehouse/`basename $PWD`/
