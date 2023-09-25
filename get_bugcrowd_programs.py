@@ -1,4 +1,5 @@
 import os, subprocess
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -45,13 +46,15 @@ temp_dir_name = 'holding-cell/'
 
 # preset data for testing, remove when using for real
 output_urls = []
-output_urls.append({'name': 'iaf-vdp', 'link': 'https://bugcrowd.com/iaf-vdp'})
+output_urls.append({'name': 'csb-vdp', 'link': 'https://bugcrowd.com/csb-vdp'})
+
 # end preset data
 
 for i in output_urls:
     exists = os.path.exists(temp_dir_name + i['name'])
     if not exists:
-        os.mkdir(temp_dir_name + i['name'])
+        Path(temp_dir_name + i['name']).mkdir( parents=True, exist_ok=True )
+        #os.mkdir(temp_dir_name + i['name'])
 
 for i in output_urls:
     path= temp_dir_name + i['name']

@@ -4,3 +4,4 @@ hosts
 domains
 wildcards
 recon-venv/
+holding-cell/
