@@ -11,8 +11,8 @@ options.add_argument("--disable-blink-features=AutomationControlled") # bypasses
 driver = webdriver.Chrome(options=options)
 
 # make list of urls from program_urls.txt
-base_url = 'https://bugcrowd.com/programs?sort[]=promoted-desc&industry[]=government'
-#base_url = 'https://bugcrowd.com/programs?sort[]=promoted-desc&industry[]=government&safe_harbor[]=full&search[]=collaboration%3A'
+#base_url = 'https://bugcrowd.com/programs?sort[]=promoted-desc&industry[]=government'
+base_url = 'https://bugcrowd.com/programs?sort[]=promoted-desc&industry[]=government&safe_harbor[]=full&search[]=collaboration%3A'
 
 
 # make request for each url
@@ -41,50 +41,39 @@ def clean_url(url):
         url = url.split('/')[0]
     return url
 
-for i in output_urls:
-    #print(i['name'])
-    #print(i['link'])
-    # make directory if it doesn't exist with name
-    # cd into directory
-    # make file called wildcards
-    # write i['link'] to wildcards
-    # cd out of directory
-    exists = os.path.exists(i['name'])
-    if not exists:
-        #print('making directory')
-        os.mkdir(i['name'])
+temp_dir_name = 'holding-cell/'
+
+# preset data for testing, remove when using for real
+output_urls = []
+output_urls.append({'name': 'iaf-vdp', 'link': 'https://bugcrowd.com/iaf-vdp'})
+# end preset data
 
 for i in output_urls:
-    print(i)
-    exists = os.path.exists(i['name'])
-    print(exists)
+    exists = os.path.exists(temp_dir_name + i['name'])
+    if not exists:
+        os.mkdir(temp_dir_name + i['name'])
+
+for i in output_urls:
+    path= temp_dir_name + i['name']
+    exists = os.path.exists(path)
     if exists:
-        #print(i['link'])
-        # copy recon.sh into dir
-        os.popen('cp recon.sh ' + i['name'])
+        os.popen('cp recon.sh ' + path)
         scope = get_scope(i['link'])
         for s in scope:
             print('scope')
             print(s)
-            os.chdir(i['name'])
+            os.chdir(path)
             with open('wildcards', 'a+') as f:
                 f.seek(0)
                 if (clean_url(s) + "\n" in f.readlines()):
                     print('already exists')
                 else:
                     f.write(clean_url(s) + '\n')
-            os.chdir('..')
+            os.chdir('../..')
         # run recon.sh
-        os.chdir(i['name'])
+        os.chdir(path)
         os.popen('chmod +x recon.sh')
         new_env = os.environ.copy()
-        new_env["PATH"] = os.pathsep.join(["/home/victor/go/bin",new_env["PATH"]])
+        new_env["PATH"] = os.pathsep.join(["~/go/bin",new_env["PATH"]])
         subprocess.call(['/bin/bash', '-c', './recon.sh'], env=new_env)
         os.chdir('..')
-# out_urls = []
-# for i in output_urls:
-#     scope = get_scope(i['link'])
-#     for s in scope:
-#         out_urls.append(s)
-#     print(scope)
-# print(out_urls)
