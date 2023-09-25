@@ -18,7 +18,7 @@ cat hosts | fff -d 1 -S -o roots
 for host in $(cat hosts); do
     echo $host
     # wget robots.txt
-    wget $host/robots.txt
+    wget $host/robots.txt -O $host.robots.txt
 done
 
 

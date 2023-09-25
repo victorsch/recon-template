@@ -1,1 +1,6 @@
 roots/
+__pycache__/
+hosts
+domains
+wildcards
+recon-venv/
