@@ -32,6 +32,7 @@ def initialize():
 def get_scope(program_url):
     program_url = program_url.strip()
     driver = initialize()
+    driver.implicitly_wait(5)
     #print(program_url)
 
 
