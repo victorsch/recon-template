@@ -21,3 +21,6 @@ cat hosts | fff -d 1 -S -o roots
 # fff made .headers and .body files, headers has the headers of the response and body has the body of the response
 cd ..
 aws s3 cp --recursive recon-template/roots s3://mass-recon-warehouse/`basename $PWD`
+aws s3 cp --recursive recon-template/hosts s3://mass-recon-warehouse/`basename $PWD`/hosts
+aws s3 cp --recursive recon-template/domains s3://mass-recon-warehouse/`basename $PWD`/domains
+aws s3 cp --recursive recon-template/wildcards s3://mass-recon-warehouse/`basename $PWD`/wildcards
