@@ -19,3 +19,5 @@ cat domains | httprobe -c 80 | anew hosts
 cat hosts | fff -d 1 -S -o roots
 
 # fff made .headers and .body files, headers has the headers of the response and body has the body of the response
+cd ..
+aws s3 cp --recursive . s3://mass-recon-warehouse/`basename $PWD`
